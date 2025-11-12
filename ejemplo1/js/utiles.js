@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <td>${alumno.codigo}</td>
                     <td>${alumno.nombre}</td>
                     <td>${alumno.apellidos}</td>
+                    <td>${alumno.nota}</td>
                 `;
                 tbody.appendChild(fila);
             });
@@ -31,3 +32,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error(error);
     }
 });
+
+function cargalista(){
+    fetch("php/listaralumnosfacil.php")
+    .then(response => response.text()) // Convierte la respuesta a texto
+    .then(data => {
+        document.getElementById('lista-alumnos').innerHTML = data;
+  })
+  .catch(error => console.error('Error:', error));
+}
