@@ -41,3 +41,19 @@ function cargalista(){
   })
   .catch(error => console.error('Error:', error));
 }
+
+function altaalumno(){
+    const nombre = document.getElementById("nombre").value;
+    const apellidos = document.getElementById("apellidos").value;
+    const nota = document.getElementById("nota").value;
+
+    const url = `php/altaalumno.php?nombre=${encodeURIComponent(nombre)}&apellidos=${encodeURIComponent(apellidos)}&nota=${encodeURIComponent(nota)}`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+          console.log(data);
+          alert(data.message);
+      })
+      .catch(err => console.error(err));
+}

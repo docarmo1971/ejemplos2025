@@ -6,13 +6,13 @@ header('Content-Type: application/json; charset=utf-8');
 include 'conexion.php'; // o require 'conexion.php';
 
 // Verificar conexión
-if ($conn->connect_error) {
+if ($conexion->connect_error) {
     die(json_encode(["error" => "Error de conexión: " . $conn->connect_error]));
 }
 
 // Consulta SQL
 $sql = "SELECT * FROM alumnos";
-$resultado = $conn->query($sql);
+$resultado = $conexion->query($sql);
 
 // Array para guardar los resultados
 $alumnos = [];
@@ -29,5 +29,5 @@ if ($resultado && $resultado->num_rows > 0) {
 }
 
 // Cerrar conexión
-$conn->close();
+$conexion->close();
 ?>
