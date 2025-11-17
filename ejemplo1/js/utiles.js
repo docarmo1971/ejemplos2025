@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <td>${alumno.nombre}</td>
                     <td>${alumno.apellidos}</td>
                     <td>${alumno.nota}</td>
+                    <td><button onclick=eliminaalumno(${alumno.codigo});>Eliminar</button></td>
                 `;
                 tbody.appendChild(fila);
             });
@@ -48,6 +49,18 @@ function altaalumno(){
     const nota = document.getElementById("nota").value;
 
     const url = `php/altaalumno.php?nombre=${encodeURIComponent(nombre)}&apellidos=${encodeURIComponent(apellidos)}&nota=${encodeURIComponent(nota)}`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+          console.log(data);
+          alert(data.message);
+      })
+      .catch(err => console.error(err));
+}
+
+function eliminaalumno(id){
+   const url = 'php/borraalumno.php?id='+id;
 
     fetch(url)
       .then(res => res.json())
