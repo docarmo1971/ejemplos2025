@@ -20,8 +20,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <td>${alumno.nombre}</td>
                     <td>${alumno.apellidos}</td>
                     <td>${alumno.nota}</td>
-                    <td><button onclick=eliminaalumno(${alumno.codigo});>Eliminar</button></td>
-                    <td><button onclick=modificaalumno(${alumno.codigo});>Modificar</button></td>
+                    <td>
+                    <button onclick=eliminaalumno(${alumno.codigo});>Eliminar</button>
+                    <button onclick=modificaalumno(${alumno.codigo});>Modificar</button>
+                    <button onclick=vernotas(${alumno.codigo});>Ver notas</button>
+                    </td>
                 `;
                 tbody.appendChild(fila);
             });
@@ -99,4 +102,43 @@ function modificaalumno2(){
           alert(data.message);
       })
       .catch(err => console.error(err));
+}
+
+function vernotas(id){
+    //alert(id);
+    fetch("php/listarnotas.php?id=" + id)
+    .then(response => response.json())
+    .then(data => {
+        const notas = document.getElementById('notas');
+        notas.innerHTML = ""; // limpio antes de crear nada
+        // Crear tabla
+        const tabla = document.createElement("table");
+        tabla.border = "1";
+        tabla.style.borderCollapse = "collapse";
+        // Encabezados
+        const thead = document.createElement("thead");
+        thead.innerHTML = `
+            <tr>
+                <th>Materia</th>
+                <th>Nota</th>
+            </tr>
+        `;
+        tabla.appendChild(thead);
+        // Cuerpo de la tabla
+        const tbody = document.createElement("tbody");
+        data.forEach(nota => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${nota.materia}</td>
+                <td>${nota.nota}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+        tabla.appendChild(tbody);
+        // Insertar tabla en el div
+        notas.appendChild(tabla);
+    })
+    .catch(error => {
+        console.error("Error al obtener las notas:", error);
+    });
 }
