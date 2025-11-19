@@ -17,7 +17,7 @@ $nota = $_GET['nota'];
 $id = $_GET['id'];
 
 // Consulta (NO segura si los datos vienen del usuario)
-$sql = "UPDATE alumnos SET nombre = '$nombre', apellidos = '$apellidos', nota = '$nota' WHERE id = '$id'";
+$sql = "UPDATE alumnos SET nombre = '$nombre', apellidos = '$apellidos', nota = $nota WHERE codigo = $id";
 // Ejecutar
 if (mysqli_query($conexion, $sql)) {
     echo json_encode([
